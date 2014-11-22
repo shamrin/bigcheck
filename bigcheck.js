@@ -1,5 +1,5 @@
 var bigcheck = (function () {
-  var exports;
+  var exports = {};
 
   function isInteger(n) {
     return n === +n && n === (n|0);
@@ -133,7 +133,7 @@ var bigcheck = (function () {
     var name = gens.shift();
     var fun = gens.pop();
     var gen = tuple(gens);
-    return new ForAll(name, gen, function (values) {fun.apply(null, values)});
+    return new ForAll(name, gen, function (values) {return fun.apply(null, values)});
   }
 
   ForAll.prototype = {
