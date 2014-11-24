@@ -91,6 +91,34 @@ var bigcheck = (function () {
       });
   }
 
+  function ordinal(min, max) {
+    return new Generator(
+      function ordinalGrow(size) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      },
+      function ordinalShrink(value, bias) {
+        if (Math.random() < bias) {
+          return min;
+        } else {
+          return Math.floor(Math.random() * (value - min + 1)) + min;
+        }
+      });
+  }
+
+  function map(elems, to, from) {
+    forall('check map', elems,
+           // FIXME get rid of underscore dependency
+           function(e) { return _.isEqual(from(to(e)), e); }).assert();
+    return new Generator(
+      function mapGrow(size) {
+        return to(elems.grow(size));
+      },
+      function mapShrink(value, bias) {
+        return to(elems.shrink(from(value), bias));
+      }
+    );
+  }
+
   var value = integer; // TODO any valid eve value
 
   function facts(numColumns) {
@@ -236,7 +264,7 @@ var bigcheck = (function () {
   //          return false;
   //        }).check({maxTests: 10000000, maxShrinks: 20000000, bias: 0});
 
-  exports = {number: number, integer: integer, array: array, tuple: tuple, value: value, facts: facts, forall: forall, foralls: foralls};
+  exports = {number: number, integer: integer, array: array, tuple: tuple, value: value, facts: facts, forall: forall, foralls: foralls, map: map};
 
   if (typeof module !== 'undefined' && module.exports) { // node.js
     module.exports = exports;
