@@ -1,4 +1,4 @@
-Bigcheck library, by [jamii](https://github.com/jamii), copied from his [github comment](https://github.com/graue/gentest/issues/11#issuecomment-64044192).
+Bigcheck library, written by [jamii](https://github.com/jamii), copied from his [github comment](https://github.com/graue/gentest/issues/11#issuecomment-64044192).
 
 ```
 The MIT License (MIT)
