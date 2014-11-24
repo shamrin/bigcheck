@@ -239,6 +239,10 @@ var bigcheck = (function () {
     }
   };
 
+  var char = map(ordinal(32, 126),
+                 function toChar(n) { return String.fromCharCode(n); },
+                 function fromChar(c) { return c.charCodeAt(); });
+
   // TESTS
 
   //   foralls("sum", number, number,
@@ -264,7 +268,7 @@ var bigcheck = (function () {
   //          return false;
   //        }).check({maxTests: 10000000, maxShrinks: 20000000, bias: 0});
 
-  exports = {number: number, integer: integer, array: array, tuple: tuple, value: value, facts: facts, forall: forall, foralls: foralls, map: map};
+  exports = {number: number, integer: integer, array: array, tuple: tuple, value: value, facts: facts, forall: forall, foralls: foralls, map: map, ordinal: ordinal, char: char};
 
   if (typeof module !== 'undefined' && module.exports) { // node.js
     module.exports = exports;
