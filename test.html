@@ -1,0 +1,45 @@
+<script src="./node_modules/underscore/underscore-min.js"></script>
+<script src="bigcheck.js"></script>
+<script>
+  var foralls = bigcheck.foralls, string = bigcheck.string, number = bigcheck.number, array = bigcheck.array, char = bigcheck.char, map = bigcheck.map, integer = bigcheck.integer, ordinal = bigcheck.ordinal;
+
+//  foralls("sum", number, number,
+//         function (a, b) {
+//           return (a + b) >= a;
+//         }).assert();
+  console.log(foralls("number is positive", number, function(n) {
+    return n > 0;
+  }).check());
+  foralls("sort is idempotent", array(number), function(a) {
+    return _.isEqual(_.sortBy(_.sortBy(a)), _.sortBy(a))
+  }).assert();
+  console.log(foralls("not multiple of 400", map(integer,
+                        function(i) { return 4 * i; },
+                        function(i) { return Math.floor(i / 4); }),
+                      function(n) {
+                        return (n == 0) || (n % 4000 != 0);
+                      }).check({maxTests: 10000}));
+  console.log(foralls("does not contain '0,0'", map(array(integer),
+                        function(a) { return a.join(','); },
+                        function(s) {
+                          if (s.length == 0) {
+                            return [];
+                          }
+                          return s.split(",").map(function(n) {
+                            return parseInt(n, 10);
+                          }); 
+                        }),
+                      function(s) {
+                        return s.indexOf('0,0') == -1;
+                      }).check());
+  console.log(foralls('ordinal', ordinal(5, 15), function(o) { return (o >= 5) && (o <= 14); }).check());
+
+  console.log(foralls("char", char, function(c) {
+    return c.charCodeAt() < 120;
+  }).check());
+
+  console.log("string", string);
+  console.log(foralls("string length", string, function(s) {
+    return s.length < 5;
+  }).check());
+</script>
