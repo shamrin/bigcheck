@@ -213,34 +213,28 @@ var bigcheck = (function () {
 
   // TESTS
 
-  //   foralls(number, number,
+  //   foralls("sum", number, number,
   //          function (a, b) {
   //            return (a + b) >= a;
   //          }).assert();
 
-  // console.time("Random tuple failure");
-  // foralls(array(tuple([number, number, number])),
+  // foralls("random tuple failure", array(tuple([number, number, number])),
   //        function(_) {
   //          return Math.random() < 0.999;
   //        }).check({maxTests: 10000, maxShrinks: 20000, bias: 0});
-  // console.timeEnd("Random tuple failure");
 
-  // console.time("Random array failure");
-  // foralls(array(array(number)),
+  // foralls("random array failure", array(array(number)),
   //        function(_) {
   //          return Math.random() < 0.999;
   //        }).check({maxTests: 10000, maxShrinks: 20000, bias: 0});
-  // console.timeEnd("Random array failure");
 
-  // console.time("Arrays are not strictly sorted");
-  // foralls(array(number, 9),
+  // foralls("arrays are not strictly sorted", array(number, 9),
   //        function(nums) {
   //          for (var i = 0; i < nums.length - 1; i++) {
   //            if (nums[i] >= nums[i+1]) return true;
   //          }
   //          return false;
   //        }).check({maxTests: 10000000, maxShrinks: 20000000, bias: 0});
-  // console.timeEnd("Arrays are not strictly sorted");
 
   exports = {number: number, integer: integer, array: array, tuple: tuple, value: value, facts: facts, forall: forall, foralls: foralls};
 
