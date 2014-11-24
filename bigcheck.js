@@ -238,5 +238,11 @@ var bigcheck = (function () {
 
   exports = {number: number, integer: integer, array: array, tuple: tuple, value: value, facts: facts, forall: forall, foralls: foralls};
 
+  if (typeof module !== 'undefined' && module.exports) { // node.js
+    module.exports = exports;
+  } else { // browser
+    this.bigcheck = exports;
+  }
+
   return exports;
 })();
